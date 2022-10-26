@@ -2,7 +2,12 @@
 import { ref } from 'vue'
 // 在 typescript 时可以使用辅助函数来帮助类型推导
 import { defineColumns } from 'vexip-ui'
-const dictData = { 松鱼: '大头鱼', 菜头: '萝卜' }
+interface Item {
+  word: string
+  meaning: string
+}
+//const dictData = { 松鱼: '大头鱼', 菜头: '萝卜' }
+const dictList: Item[] = [{ word: '松鱼', meaning: '大头鱼' }]
 const columns = ref(
   defineColumns([
     {
@@ -15,26 +20,24 @@ const columns = ref(
     }
   ])
 )
-const data = ref([])
+const data = ref([
+  {
+    word: '',
+    meaning: ''
+  }
+])
 const searchKey = ref('')
-const inputStatus = ref('')
+const inputStatus = ref('default')
 const inputPlaceholder = ref('输入你想搜索的词')
 function search() {
   console.log(searchKey.value)
   if (searchKey.value.length > 0) {
-    data.value = Object.keys(dictData)
-      .filter(key => key.includes(searchKey.value))
-      .map(key => {
-        return {
-          word: key,
-          meaning: dictData[key]
-        }
-      })
+    data.value = dictList.filter(item => item.word.includes(searchKey.value))
     if (data.value.length === 0) {
       inputStatus.value = 'error'
       inputPlaceholder.value = '找不到你想搜索的关键词'
     } else {
-      inputStatus.value = ''
+      inputStatus.value = 'default'
       inputPlaceholder.value = '输入你想搜索的词'
     }
   } else {
@@ -51,12 +54,7 @@ function search() {
         <img src="/vexip-ui.svg" class="login__logo" alt="Vexip UI Logo" />
       </Linker>
       <H1 style="margin: 0"> 潮汕用词搜索 </H1>
-      <Input
-        v-model:value="searchKey"
-        v-model:state="inputStatus"
-        v-model:placeholder="inputPlaceholder"
-        style="max-width: 420px"
-      >
+      <Input :value="searchKey" :placeholder="inputPlaceholder" style="max-width: 420px">
         <template #after-action>
           <Button id="button_search" type="primary" @click="search"> 搜索 </Button>
         </template>
