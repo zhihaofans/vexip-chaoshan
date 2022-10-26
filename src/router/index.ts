@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import type { RouteRecordRaw } from 'vue-router'
+import { Loading } from 'vexip-ui'
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    name: 'Login',
+    name: 'Search',
     component: () => import('../views/Search.vue')
   }
 ]
