@@ -1,22 +1,5 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
 
-interface Model {
-  username: string,
-  password: string
-}
-
-const model = reactive({} as Model)
-
-const providedProps = {
-  button: {
-    size: 'large'
-  },
-  input: {
-    size: 'large',
-    clearable: true
-  }
-}
 </script>
 
 <template>
