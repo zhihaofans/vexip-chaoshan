@@ -3,10 +3,10 @@ import { ref } from 'vue'
 // 在 typescript 时可以使用辅助函数来帮助类型推导
 import { defineColumns } from 'vexip-ui'
 interface Item {
-  word: string
+  word: string,
   meaning: string
 }
-//const dictData = { 松鱼: '大头鱼', 菜头: '萝卜' }
+// const dictData = { 松鱼: '大头鱼', 菜头: '萝卜' }
 const dictList: Item[] = [{ word: '松鱼', meaning: '大头鱼' }]
 const columns = ref(
   defineColumns([
@@ -26,11 +26,12 @@ const data = ref([
     meaning: ''
   }
 ])
+data.value.shift()
 const searchKey = ref('')
 const inputStatus = ref('default')
 const inputPlaceholder = ref('输入你想搜索的词')
 function search() {
-  console.log(searchKey.value)
+  console.log(searchKey)
   if (searchKey.value.length > 0) {
     data.value = dictList.filter(item => item.word.includes(searchKey.value))
     if (data.value.length === 0) {
@@ -42,7 +43,7 @@ function search() {
     }
   } else {
     inputStatus.value = 'error'
-    inputPlaceholder.value = '找不到你想搜索的关键词'
+    inputPlaceholder.value = '请输入你想搜索的词'
   }
 }
 </script>
