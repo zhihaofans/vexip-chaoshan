@@ -32,7 +32,9 @@ const inputPlaceholder = ref('输入你想搜索的词')
 function search() {
   // console.log(searchKey)
   if (searchKey.value.length > 0) {
-    data.value = dictData.filter(item => item.word.includes(searchKey.value))
+    data.value = dictData.filter(
+      item => item.word.includes(searchKey.value) || item.meaning.includes(searchKey.value)
+    )
     if (data.value.length === 0) {
       inputStatus.value = 'error'
       inputPlaceholder.value = '找不到你想搜索的关键词'
