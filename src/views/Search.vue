@@ -2,26 +2,11 @@
 import { ref } from 'vue'
 // 在 typescript 时可以使用辅助函数来帮助类型推导
 import { defineColumns } from 'vexip-ui'
+import dictData from '../../data/data.json'
 interface Item {
   word: string,
   meaning: string
 }
-// const dictData = { 松鱼: '大头鱼', 菜头: '萝卜' }
-const dictList: Item[] = [
-  { word: '松鱼', meaning: '大头鱼' },
-  { word: '菜头', meaning: '萝卜' },
-  { word: '非洲鲫', meaning: '罗非鱼' },
-  { word: '飞龙', meaning: '菠菜' },
-  { word: '力苏', meaning: '茄子' },
-  { word: '干筒', meaning: '土豆' },
-  { word: '钱葱(荠葱)', meaning: '马蹄' },
-  { word: '吊瓜', meaning: '黄瓜' },
-  { word: '奶瓜', meaning: '木瓜' },
-  { word: '番瓜', meaning: '南瓜' },
-  { word: '角瓜', meaning: '有棱丝瓜、广东丝瓜' },
-  { word: '雍菜', meaning: '空心菜' },
-  { word: '春菜', meaning: '芥菜' }
-]
 const columns = ref(
   defineColumns([
     {
@@ -47,7 +32,7 @@ const inputPlaceholder = ref('输入你想搜索的词')
 function search() {
   // console.log(searchKey)
   if (searchKey.value.length > 0) {
-    data.value = dictList.filter(item => item.word.includes(searchKey.value))
+    data.value = dictData.filter(item => item.word.includes(searchKey.value))
     if (data.value.length === 0) {
       inputStatus.value = 'error'
       inputPlaceholder.value = '找不到你想搜索的关键词'
