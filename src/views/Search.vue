@@ -7,7 +7,10 @@ interface Item {
   meaning: string
 }
 // const dictData = { 松鱼: '大头鱼', 菜头: '萝卜' }
-const dictList: Item[] = [{ word: '松鱼', meaning: '大头鱼' }]
+const dictList: Item[] = [
+  { word: '松鱼', meaning: '大头鱼' },
+  { word: '菜头', meaning: '萝卜' }
+]
 const columns = ref(
   defineColumns([
     {
@@ -31,7 +34,7 @@ const searchKey = ref('')
 const inputStatus = ref('default')
 const inputPlaceholder = ref('输入你想搜索的词')
 function search() {
-  console.log(searchKey)
+  // console.log(searchKey)
   if (searchKey.value.length > 0) {
     data.value = dictList.filter(item => item.word.includes(searchKey.value))
     if (data.value.length === 0) {
@@ -55,7 +58,12 @@ function search() {
         <img src="/vexip-ui.svg" class="login__logo" alt="Vexip UI Logo" />
       </Linker>
       <H1 style="margin: 0"> 潮汕用词搜索 </H1>
-      <Input :value="searchKey" :placeholder="inputPlaceholder" style="max-width: 420px">
+      <Input
+        v-model:value="searchKey"
+        :placeholder="inputPlaceholder"
+        style="max-width: 420px"
+        @enter="search"
+      >
         <template #after-action>
           <Button id="button_search" type="primary" @click="search"> 搜索 </Button>
         </template>
