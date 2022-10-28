@@ -30,6 +30,7 @@ const searchKey = ref('')
 const inputStatus = ref('default')
 const inputPlaceholder = ref('输入你想搜索的词')
 function search() {
+  Message.clear()
   // console.log(searchKey)
   if (searchKey.value.length > 0) {
     data.value = dictData.filter(
@@ -38,13 +39,16 @@ function search() {
     if (data.value.length === 0) {
       inputStatus.value = 'error'
       inputPlaceholder.value = '找不到你想搜索的关键词'
+      Message.error('找不到你想搜索的关键词')
     } else {
       inputStatus.value = 'default'
       inputPlaceholder.value = '输入你想搜索的词'
+      Message.success('共' + data.value.length + '个结果')
     }
   } else {
     inputStatus.value = 'error'
     inputPlaceholder.value = '请输入你想搜索的词'
+    Message.error('请输入你想搜索的词')
   }
 }
 </script>
